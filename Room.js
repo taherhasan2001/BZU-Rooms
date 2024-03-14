@@ -26,7 +26,8 @@ class PlaceBZU {
 
 async function fetchData() {
     try {
-        const response = await axios.get('https://www.bzu-hub.com/schedule-main/BZU/BZU.json');
+        const response = await axios.get('https://www.bzu-hub.com/schedule-main/BZU/BZU.json'); // Please note that the URL provided may change over time.
+
         const data = response.data;
 
         const AllRooms = {};
@@ -34,7 +35,7 @@ async function fetchData() {
         for (const course of data) {
             const place = course.place;
             const days = course.days.split(', ');
-            const time = course.time.split(', '); // Split time into separate time slots
+            const time = course.time.split(', '); 
             let obj;
             if (!(place in AllRooms)) {
                 obj = new PlaceBZU(place);
@@ -44,7 +45,7 @@ async function fetchData() {
             }
             for (const day of days) {
                 if (day === "M") {
-                    obj.Monday.push(...time); // Push each time slot separately
+                    obj.Monday.push(...time); 
                 } else if (day === "T") {
                     obj.Tuesday.push(...time);
                 } else if (day === "W") {
@@ -61,7 +62,7 @@ async function fetchData() {
             }
         }
 
-        for (const key of Object.keys(AllRooms)) {
+        for (const key of Object.keys(AllRooms)) { // The times should be sorted in ascending order.
             const obj = AllRooms[key];
             obj.Monday = obj.Monday.sort(sortTimeSlots);
             obj.Tuesday = obj.Tuesday.sort(sortTimeSlots);
