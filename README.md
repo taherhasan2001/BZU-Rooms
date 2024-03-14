@@ -1,4 +1,4 @@
-# BZU-Room-Number
+# BZU-Rooms
 
 ## Overview
 
